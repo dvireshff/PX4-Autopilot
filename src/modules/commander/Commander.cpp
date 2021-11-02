@@ -577,6 +577,7 @@ Commander::Commander() :
 	status_flags.offboard_control_signal_lost = true;
 	status.data_link_lost = true;
 
+	status.nav_state_timestamp = hrt_absolute_time();
 	status.timestamp = hrt_absolute_time();
 
 	status_flags.condition_power_input_valid = true;
@@ -2338,6 +2339,10 @@ Commander::run()
 						       offboard_loss_rc_act,
 						       posctl_nav_loss_act);
 
+
+		if (nav_state_changed) {
+			status.nav_state_timestamp = hrt_absolute_time();
+		}
 		if (status.failsafe != failsafe_old) {
 			status_changed = true;
 

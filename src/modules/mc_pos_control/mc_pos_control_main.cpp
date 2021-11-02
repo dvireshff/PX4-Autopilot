@@ -841,7 +841,7 @@ MulticopterPositionControl::start_flight_task()
 			_task_failure_count = 0;
 		}
 
-	} else if (_control_mode.flag_control_auto_enabled) {
+	} else if (_control_mode.flag_control_auto_enabled && (hrt_elapsed_time(&_vehicle_status.nav_state_timestamp) > 200000)) {
 		// Auto related maneuvers
 		should_disable_task = false;
 		int error = 0;
